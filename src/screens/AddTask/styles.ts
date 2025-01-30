@@ -4,6 +4,7 @@ export const style = StyleSheet.create({
 
     container:{
         alignItems: 'center',
+        flexDirection: 'column',
         justifyContent: 'space-between',
         padding: 20,
         width:'100%',
@@ -13,29 +14,31 @@ export const style = StyleSheet.create({
     title:{
         fontSize: 20,
         fontWeight: 'bold',
-        marginTop: 30
+        marginTop: 45
     },
-    formGroup:{
+    inputWrapper:{
         width:'100%',
         display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        borderRadius: 10,
+        borderColor: 'gray',
+        borderWidth: 1,
+        padding: 10
+    },
+    formGroup:{
+        display: 'flex',
         flexDirection: 'column',
-        gap: 25
+        gap: 30
     },
     input:{
         width: '100%',
-        borderRadius: 10,
-        borderColor: 'black',
-        borderWidth: 1,
-        padding: 10
-
+        marginLeft: 5
     },
     detailsInput:{
         width: '100%',
         height: 100,
-        borderRadius: 10,
-        borderColor: 'black',
-        borderWidth: 1,
-        padding: 10
+        marginLeft: 5
     },
     button:{
         alignItems: 'center',

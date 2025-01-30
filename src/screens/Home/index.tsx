@@ -1,19 +1,21 @@
 import React from "react";
 import { Text, View, Image, TouchableOpacity, Alert } from "react-native";
 import { style } from "./styles";
-import Logo from '../../assets/logo.png';
+import Logo from "../../assets/logo.png";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 export default function Home(){
+    const navigation = useNavigation<NavigationProp<any>>()
 
     function redirect(){
-        Alert.alert('Redirect to list.')
+        navigation.navigate("AddTask")
     }
 
     return (
                 <View style={style.container}>
                     <Image
                         source={Logo}
-                        resizeMode="contain"
+                        resizeMode='contain'
                     />
                     
                     <Text style={style.title}>Task Manager</Text>
