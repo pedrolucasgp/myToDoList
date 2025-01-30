@@ -1,27 +1,18 @@
 import { StyleSheet } from "react-native";
 
 export const style = StyleSheet.create({
-    container:{
-        flex: 1,
+     container:{
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#fffafa'
-    },
-    content:{
-        alignItems: 'center',
-        justifyContent: 'center',
+        gap: 30,
         padding: 20,
-        width:'100%'
-    },
-    logo:{
-        width:80,
-        height:80,
-        marginTop: 50
+        width:'100%',
+        height: '100%',
+        backgroundColor: '#fffafa'
     },
     title:{
         fontSize: 40,
         fontWeight: 'bold',
-        padding: 30
     },
     text:{
         textAlign: 'center',
