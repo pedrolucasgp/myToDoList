@@ -1,26 +1,28 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
-import AddTask from "../screens/AddTask";
+import { createStackNavigator } from "@react-navigation/stack";
+import TabRoutes from "./tab.routes";
+
+
+const Stack = createStackNavigator()
 
 export default function Routes(){
-    const Tab = createBottomTabNavigator()
-    
     return(
-        <Tab.Navigator 
-            initialRouteName="Home"
-            screenOptions={{ headerShown: false }}
-        >
-            <Tab.Screen
+            <Stack.Navigator 
+                screenOptions={{ 
+                    headerShown: false,
+                    gestureEnabled: false
+                }}>
+
+            <Stack.Screen 
                 name="Home"
-                component={Home}
-                options={{ tabBarStyle: { display: "none" } }}
+                component={Home} 
             />
-            
-            <Tab.Screen
-                name="AddTask"
-                component={AddTask}
-                options={{ tabBarStyle: { display: "none" } }}
+            <Stack.Screen 
+                name="TabRoutes"
+                component={TabRoutes} 
             />
-        </Tab.Navigator>
+
+            </Stack.Navigator>
+    
     )
 }

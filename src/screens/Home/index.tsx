@@ -8,7 +8,7 @@ export default function Home(){
     const navigation = useNavigation<NavigationProp<any>>()
 
     function redirect(){
-        navigation.navigate("AddTask")
+        navigation.navigate("TabRoutes")
     }
 
     return (

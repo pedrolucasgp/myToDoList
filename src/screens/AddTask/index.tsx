@@ -2,8 +2,6 @@ import React from "react";
 import { View, Text, TouchableOpacity, Alert, TextInput } from "react-native";
 import { style } from "./styles";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { NavigationBar } from "../../components/navigationBar";
-
 
 export default function AddTask(){
 
@@ -36,7 +34,6 @@ export default function AddTask(){
                 <Text style={style.buttonText}>+ Add Task</Text>
             </TouchableOpacity>
 
-            <NavigationBar />
         </View>
     )
 }

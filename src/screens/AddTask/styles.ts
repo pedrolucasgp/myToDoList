@@ -6,7 +6,7 @@ export const style = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        padding: 20,
+        padding: 30,
         width:'100%',
         height: '100%',
         backgroundColor: '#fffafa'
@@ -47,7 +47,7 @@ export const style = StyleSheet.create({
         height: 30,
         backgroundColor: '#9597F4',
         borderRadius: 10,
-        marginBottom: 40
+        marginBottom: 30
     },
     buttonText:{
         color: 'white',
