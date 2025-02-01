@@ -1,13 +1,34 @@
 import { StyleSheet } from "react-native";
 
 export const style = StyleSheet.create({
-     container:{
+    container:{
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 30,
         padding: 20,
         width:'100%',
         height: '100%',
         backgroundColor: '#fffafa'
+    },
+    task: {
+        borderColor: '#333333',
+        borderWidth: 0.5,
+        alignItems : 'center',
+        flexDirection: 'row',
+        marginVertical: 10,
+        width: '100%',
+        padding: 10,
+        borderRadius: 10
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        width: '100%',
+        textAlign: 'left',
+        color: '#595bb3',
+        margin: 20
+    },
+    taskTitle:{
+        width: '100%',
+        flexWrap: 'wrap'
     }
 })

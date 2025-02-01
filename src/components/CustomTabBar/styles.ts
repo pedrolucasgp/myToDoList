@@ -4,12 +4,9 @@ export const style = StyleSheet.create({
 
     tabGroup:{
         width: '100%',
-        display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         flexDirection: 'row',
-        gap: 60,
-        paddingHorizontal: 120,
-        paddingVertical: 30,
+        padding: 18,
         borderTopColor: '#333333',
         borderTopWidth: 0.5,
         backgroundColor: '#fffafa'
