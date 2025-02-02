@@ -14,6 +14,7 @@ export const style = StyleSheet.create({
     title:{
         fontSize: 20,
         fontWeight: 'bold',
+        color: '#595bb3',
         marginTop: 45
     },
     inputWrapper:{
@@ -21,6 +22,7 @@ export const style = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
+        alignItems: 'center',
         borderRadius: 10,
         borderColor: 'gray',
         borderWidth: 1,
@@ -33,11 +35,6 @@ export const style = StyleSheet.create({
     },
     input:{
         width: '100%',
-        marginLeft: 5
-    },
-    detailsInput:{
-        width: '100%',
-        height: 100,
         marginLeft: 5
     },
     button:{

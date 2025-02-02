@@ -15,9 +15,13 @@ export const style = StyleSheet.create({
         alignItems : 'center',
         flexDirection: 'row',
         marginVertical: 10,
-        width: '100%',
+        maxWidth: '100%',
         padding: 10,
         borderRadius: 10
+    },
+    taskTitle:{
+        maxWidth: '100%',
+        flexWrap: 'wrap'
     },
     title: {
         fontSize: 20,
@@ -25,10 +29,6 @@ export const style = StyleSheet.create({
         width: '100%',
         textAlign: 'left',
         color: '#595bb3',
-        margin: 20
-    },
-    taskTitle:{
-        width: '100%',
-        flexWrap: 'wrap'
+        margin: 30,
     }
 })
