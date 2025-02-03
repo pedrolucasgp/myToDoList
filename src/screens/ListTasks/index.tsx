@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Alert, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Modal, Text, TouchableOpacity, View } from "react-native";
 import { style } from "./styles";
 import { FlatList } from "react-native-gesture-handler";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
@@ -15,6 +15,10 @@ interface Task {
 
 export default function ListTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  const [visible, setVisible] = useState(false);
+
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
   useFocusEffect(
     useCallback(() => {
@@ -76,15 +80,51 @@ export default function ListTasks() {
     saveTaskListOnStorage(newTaskList);
   };
 
-  function handleDelete(item: Task) {
-    const newTaskList = tasks.filter((task) => task != item);
+  function handleDelete() {
+    if(!selectedTask) return;
+
+    const newTaskList = tasks.filter((task) => task != selectedTask);
     setTasks(newTaskList);
     saveTaskListOnStorage(newTaskList);
+    setVisible(!visible);
   }
 
   return (
     <View style={style.container}>
       <Text style={style.title}>Tasks List</Text>
+
+      <View>
+        <Modal animationType="fade" transparent={true} visible={visible}>
+          <View style={style.centeredModal}>
+            <View style={style.modalView}>
+              <Text style={style.modalTitle}> Delete task permanently? </Text>
+              <Text style={style.modalText}>
+                {" "}
+                This action cannot be undone. Confirm?{" "}
+              </Text>
+              <View style={style.modalButtonGroup}>
+                <TouchableOpacity
+                  style={style.modalButton}
+                  onPress={handleDelete}
+                >
+                  <Text style={{ color: "#9597F4", fontWeight: "bold" }}>
+                    Yes
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={style.modalButton}
+                  onPress={() => setVisible(!visible)}
+                >
+                  <Text style={{ color: "#d11507", fontWeight: "bold" }}>
+                    No
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </View>
 
       <FlatList
         keyExtractor={(item) => item.id}
@@ -105,7 +145,10 @@ export default function ListTasks() {
             />
             <TouchableOpacity
               style={style.button}
-              onPress={() => handleDelete(item)}
+              onPress={() => {
+                setVisible(true);
+                setSelectedTask(item);
+              }}
             >
               <MaterialCommunityIcons name="delete" size={24} color="gray" />
             </TouchableOpacity>
