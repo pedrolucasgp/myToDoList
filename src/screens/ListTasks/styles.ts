@@ -20,7 +20,7 @@ export const style = StyleSheet.create({
         borderRadius: 10
     },
     taskTitle:{
-        maxWidth: '100%',
+        width: '90%',
         flexWrap: 'wrap'
     },
     title: {
@@ -30,5 +30,8 @@ export const style = StyleSheet.create({
         textAlign: 'left',
         color: '#595bb3',
         margin: 30,
+    },
+    button:{
+        width: '10%'
     }
 })
