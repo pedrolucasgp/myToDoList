@@ -63,7 +63,7 @@ export default function AddTask() {
             placeholder="Describe your task"
             value={inputValue}
             onChangeText={setInputValue}
-          ></TextInput>
+          />
         </View>
       </View>
 

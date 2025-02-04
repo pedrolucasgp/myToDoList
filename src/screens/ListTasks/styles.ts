@@ -45,13 +45,8 @@ export const style = StyleSheet.create({
     borderRadius: 20,
     padding: 35,
     alignItems: 'center',
-    shadowColor: 'black',
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 100,
+    borderColor: '#333333',
+    borderWidth: 0.5,
     gap: 15
     },
     modalTitle:{
@@ -73,5 +68,21 @@ export const style = StyleSheet.create({
         height: 30,
         borderRadius: 10,
         borderWidth: 0.5
+    },
+    blur:{
+        position: 'absolute',
+        width: '120%',
+        height: '120%',
+        zIndex: 1
+    },
+    searchBar:{
+        width:'100%',
+        flexDirection: 'row',
+        borderRadius: 10,
+        borderColor: 'gray',
+        borderWidth: 1,
+        padding: 10,
+        gap: 5,
+        marginBottom: 20
     }
 })

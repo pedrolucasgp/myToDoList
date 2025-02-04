@@ -1,11 +1,12 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Alert, Modal, Text, TouchableOpacity, View } from "react-native";
 import { style } from "./styles";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, TextInput } from "react-native-gesture-handler";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { BlurView } from "expo-blur";
 
 interface Task {
   id: string;
@@ -16,15 +17,37 @@ interface Task {
 export default function ListTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const [visible, setVisible] = useState(false);
+  const [list, setList] = useState<Task[]>(tasks);
 
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+
+  const [visible, setVisible] = useState(false);
+
+  const [searchValue, setSearchValue] = useState<string>("");
 
   useFocusEffect(
     useCallback(() => {
       getTasks();
     }, [])
   );
+
+  useEffect(() => {
+    if (searchValue == "") {
+      setList(tasks);
+    } else {
+      setList(
+        tasks.filter((item) => {
+          if (
+            item.title.toLowerCase().indexOf(searchValue.toLowerCase()) > -1
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+      );
+    }
+  }, [searchValue]);
 
   const getTasks = async () => {
     const storageContent = await getTasksFromStorage();
@@ -81,7 +104,7 @@ export default function ListTasks() {
   };
 
   function handleDelete() {
-    if(!selectedTask) return;
+    if (!selectedTask) return;
 
     const newTaskList = tasks.filter((task) => task != selectedTask);
     setTasks(newTaskList);
@@ -91,7 +114,17 @@ export default function ListTasks() {
 
   return (
     <View style={style.container}>
+      {visible && <BlurView intensity={10} style={style.blur} />}
       <Text style={style.title}>Tasks List</Text>
+
+      <View style={style.searchBar}>
+        <MaterialCommunityIcons name="text-search" size={24} color="gray" />
+        <TextInput
+          placeholder="Search a task..."
+          value={searchValue}
+          onChangeText={setSearchValue}
+        />
+      </View>
 
       <View>
         <Modal animationType="fade" transparent={true} visible={visible}>
@@ -128,7 +161,7 @@ export default function ListTasks() {
 
       <FlatList
         keyExtractor={(item) => item.id}
-        data={tasks}
+        data={list}
         renderItem={({ item }) => (
           <View style={style.task}>
             <BouncyCheckbox
