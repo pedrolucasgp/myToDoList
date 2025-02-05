@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Alert, Modal, Text, TouchableOpacity, View } from "react-native";
 import { style } from "./styles";
-import { FlatList, TextInput } from "react-native-gesture-handler";
+import { FlatList } from "react-native-gesture-handler";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
@@ -17,13 +17,9 @@ interface Task {
 export default function ListTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const [list, setList] = useState<Task[]>(tasks);
-
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
   const [visible, setVisible] = useState(false);
-
-  const [searchValue, setSearchValue] = useState<string>("");
 
   useFocusEffect(
     useCallback(() => {
@@ -31,41 +27,22 @@ export default function ListTasks() {
     }, [])
   );
 
-  useEffect(() => {
-    if (searchValue == "") {
-      setList(tasks);
-    } else {
-      setList(
-        tasks.filter((item) => {
-          if (
-            item.title.toLowerCase().indexOf(searchValue.toLowerCase()) > -1
-          ) {
-            return true;
-          } else {
-            return false;
-          }
-        })
-      );
-    }
-  }, [searchValue]);
-
   const getTasks = async () => {
     const storageContent = await getTasksFromStorage();
 
-    if (storageContent !== null) {
+    if (storageContent == null) {
+      const apiTasks: Task[] = await fetchTasks();
+      if (apiTasks) {
+        const transformedData: Task[] = apiTasks.map((t) => ({
+          id: String(t.id),
+          title: t.title,
+          completed: t.completed,
+        }));
+
+        await saveTaskListOnStorage(transformedData);
+      }
+    } else {
       setTasks(JSON.parse(storageContent));
-      return;
-    }
-
-    const apiTasks: Task[] = await fetchTasks();
-    if (apiTasks) {
-      const transformedData: Task[] = apiTasks.map((t) => ({
-        id: String(t.id),
-        title: t.title,
-        completed: t.completed,
-      }));
-
-      await saveTaskListOnStorage(transformedData);
     }
   };
 
@@ -106,25 +83,31 @@ export default function ListTasks() {
   function handleDelete() {
     if (!selectedTask) return;
 
-    const newTaskList = tasks.filter((task) => task != selectedTask);
+    const newTaskList = tasks.filter((task) => task.id != selectedTask.id);
     setTasks(newTaskList);
     saveTaskListOnStorage(newTaskList);
     setVisible(!visible);
   }
 
+  function clearTasks() {
+    AsyncStorage.setItem("tasks", "");
+    setTasks([]);
+  }
+
   return (
     <View style={style.container}>
-      {visible && <BlurView intensity={10} style={style.blur} />}
-      <Text style={style.title}>Tasks List</Text>
+      {visible && <BlurView style={style.blur} />}
+      <View style={style.header}>
+        <Text style={style.title}>Tasks List</Text>
 
-      <View style={style.searchBar}>
-        <MaterialCommunityIcons name="text-search" size={24} color="gray" />
-        <TextInput
-          placeholder="Search a task..."
-          value={searchValue}
-          onChangeText={setSearchValue}
-        />
+        <TouchableOpacity onPress={clearTasks}>
+          <MaterialCommunityIcons name="broom" size={24} color="#d11507" />
+        </TouchableOpacity>
       </View>
+
+      {tasks.length == 0 && (
+        <Text style={style.clearMessage}>You don't have any tasks.</Text>
+      )}
 
       <View>
         <Modal animationType="fade" transparent={true} visible={visible}>
@@ -161,7 +144,7 @@ export default function ListTasks() {
 
       <FlatList
         keyExtractor={(item) => item.id}
-        data={list}
+        data={tasks}
         renderItem={({ item }) => (
           <View style={style.task}>
             <BouncyCheckbox

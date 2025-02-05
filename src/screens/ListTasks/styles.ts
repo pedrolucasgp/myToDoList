@@ -26,10 +26,8 @@ export const style = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: 'bold',
-        width: '100%',
         textAlign: 'left',
-        color: '#595bb3',
-        margin: 30,
+        color: '#595bb3'
     },
     button:{
         width: '10%'
@@ -40,14 +38,14 @@ export const style = StyleSheet.create({
         flex: 1
     },
     modalView:{
-    margin: 20,
-    backgroundColor: '#fffafa',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    borderColor: '#333333',
-    borderWidth: 0.5,
-    gap: 15
+        margin: 20,
+        backgroundColor: '#fffafa',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        borderColor: '#333333',
+        borderWidth: 0.5,
+        gap: 15
     },
     modalTitle:{
         fontSize: 20,
@@ -71,18 +69,19 @@ export const style = StyleSheet.create({
     },
     blur:{
         position: 'absolute',
-        width: '120%',
-        height: '120%',
+        width: '100%',
+        height: '100%',
         zIndex: 1
     },
-    searchBar:{
-        width:'100%',
+    header:{
         flexDirection: 'row',
-        borderRadius: 10,
-        borderColor: 'gray',
-        borderWidth: 1,
-        padding: 10,
-        gap: 5,
-        marginBottom: 20
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '100%',
+        margin: 20
+    },
+    clearMessage:{
+        fontWeight: 'bold',
+        fontSize: 24
     }
 })
